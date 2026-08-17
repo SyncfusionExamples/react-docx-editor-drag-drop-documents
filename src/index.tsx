@@ -33,71 +33,73 @@ const DragDropDocument = () => {
     });
     
     const onCreate = () => {
-        containerRef.current.documentEditor.documentName = "Drag and Drop Document";
-        document.getElementById("listView").addEventListener("dragstart", (event) => {
-            event.dataTransfer.setData("Text", event.target.innerText);
-            event.target.classList.add("de-drag-target");
-        });
-        // Prevent default drag over for document editor element
-        document.getElementById("container").addEventListener("dragover", (event) => {
-            event.preventDefault();
-        });
-        // Drop Event for document editor element
-        document.getElementById("container").addEventListener("drop", (e) => {
-            let fragmentName = e.dataTransfer.getData("Text");
-            containerRef.current.documentEditor.selection.select({
-                x: e.offsetX,
-                y: e.offsetY,
-                extend: false,
+        if(containerRef.current){
+            containerRef.current.documentEditor.documentName = "Drag and Drop Document";
+            document.getElementById("listView").addEventListener("dragstart", (event) => {
+                event.dataTransfer.setData("Text", event.target.innerText);
+                event.target.classList.add("de-drag-target");
             });
-            pasteSfdt(fragmentName);
-        });
-        document.addEventListener("dragend", (event) => {
-            if (event.target.classList.contains("de-drag-target")) {
-                event.target.classList.remove("de-drag-target");
-            }
-        });
-        
-        
-        const onSelect = (args) => {
-            let fragmentName = args.text;
-            listView.selectItem(undefined);
-            pasteSfdt(fragmentName);
-        };
-
-           
-        
-        let listView = new ListView({
-            dataSource: listData,
-
-            template: `
-                <div class="doc-row" style="display:flex;align-items:center;width:100%;">
-                    <span class="doc-title" style="flex:1">\${text}</span>
-                      <button type="button" class="e-de-view-btn" data-id="\${id}" title="View">
-                      <span class="e-icons e-eye"></span>
-                    </button>
-                </div>
-            `,
-            select: onSelect.bind(this)
-        });
-        let listDivElement = document.getElementById("listView");
-        listView.appendTo(listDivElement);
-        
-        listDivElement?.addEventListener("click", (e) => {
-
-            const button = (e.target as HTMLElement).closest(".e-de-view-btn");
-
-            if (button) {
-                e.stopPropagation();
-                e.preventDefault();
-                const id = button.getAttribute("data-id");
-                const row = listData.find(x => x.id.toString() === id);
-
-                if (row) {
-                    openDoc("View", row.text);
+            // Prevent default drag over for document editor element
+            document.getElementById("container").addEventListener("dragover", (event) => {
+                event.preventDefault();
+            });
+            // Drop Event for document editor element
+            document.getElementById("container").addEventListener("drop", (e) => {
+                let fragmentName = e.dataTransfer.getData("Text");
+                containerRef.current.documentEditor.selection.select({
+                    x: e.offsetX,
+                    y: e.offsetY,
+                    extend: false,
+                });
+                pasteSfdt(fragmentName);
+            });
+            document.addEventListener("dragend", (event) => {
+                if (event.target.classList.contains("de-drag-target")) {
+                    event.target.classList.remove("de-drag-target");
                 }
-            }            
-        });
+            });
+            
+            
+            const onSelect = (args) => {
+                let fragmentName = args.text;
+                listView.selectItem(undefined);
+                pasteSfdt(fragmentName);
+            };
+
+            
+            
+            let listView = new ListView({
+                dataSource: listData,
+
+                template: `
+                    <div class="doc-row" style="display:flex;align-items:center;width:100%;">
+                        <span class="doc-title" style="flex:1">\${text}</span>
+                        <button type="button" class="e-de-view-btn" data-id="\${id}" title="View">
+                        <span class="e-icons e-eye"></span>
+                        </button>
+                    </div>
+                `,
+                select: onSelect.bind(this)
+            });
+            let listDivElement = document.getElementById("listView");
+            listView.appendTo(listDivElement);
+            
+            listDivElement?.addEventListener("click", (e) => {
+
+                const button = (e.target as HTMLElement).closest(".e-de-view-btn");
+
+                if (button) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    const id = button.getAttribute("data-id");
+                    const row = listData.find(x => x.id.toString() === id);
+
+                    if (row) {
+                        openDoc("View", row.text);
+                    }
+                }            
+            });
+        }
         
     };
 

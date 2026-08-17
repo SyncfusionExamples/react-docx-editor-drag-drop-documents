@@ -49,22 +49,23 @@ export class TitleBar {
             openText = 'فتح';
             documentTileText = 'اسم المستند. انقر أو اضغط لأعاده تسميه هذا المستند';
         }
-        // tslint:disable-next-line:max-line-length
-        this.documentTitle = createElement('label', { id: 'documenteditor_title_name', styles: 'font-weight:400;text-overflow:ellipsis;white-space:pre;overflow:hidden;user-select:none;cursor:text' });
+        
         let iconCss = 'e-de-padding-right';
         let btnFloatStyle = 'float:right;';
-        let titleCss = '';
+        let titleFloatStyle = 'float:left;';
         if (this.isRtl) {
             iconCss = 'e-de-padding-right-rtl';
             btnFloatStyle = 'float:left;';
-            titleCss = 'float:right;';
+            titleFloatStyle = 'float:right;';
         }
-        // tslint:disable-next-line:max-line-length
-        this.documentTitleContentEditor = createElement('div', { id: 'documenteditor_title_contentEditor', className: 'single-line' });
+
+        this.documentTitle = createElement('label', { id: 'documenteditor_title_name' });
+        let titleStyle = titleFloatStyle + 'font-weight:600;text-overflow:ellipsis;white-space:pre;overflow:hidden;user-select:none;cursor:text';
+        this.documentTitleContentEditor = createElement('div', { id: 'documenteditor_title_contentEditor', className: 'single-line', styles: titleStyle });
         this.documentTitleContentEditor.appendChild(this.documentTitle);
         this.tileBarDiv.appendChild(this.documentTitleContentEditor);
         this.documentTitleContentEditor.setAttribute('title', documentTileText);
-        let btnStyles = 'float:right;background: transparent;box-shadow:none; font-family: inherit;border-color: transparent;'
+        let btnStyles = btnFloatStyle+'background: transparent;box-shadow:none; font-family: inherit;border-color: transparent;'
             + 'border-radius: 2px;color:inherit;font-size:12px;text-transform:capitalize;height:28px;font-weight:400;margin-top: 2px;';
         // tslint:disable-next-line:max-line-length
         this.close = this.addButton('e-icons e-close e-de-padding-right', "", btnStyles, 'de-close', closeToolTip, false);
@@ -154,8 +155,8 @@ export class TitleBar {
         }
     };
     // tslint:disable-next-line:max-line-length
-    addButton(iconClass, btnText, styles, id, tooltipText, isDropDown, items) {
-        let button = createElement('button', { id: id, styles: styles });
+    addButton(iconClass, btnText, btnStyles, btnId, tooltipText, isDropDown, items) {
+        let button = createElement('button', { id: btnId, styles: btnStyles });
         this.tileBarDiv.appendChild(button);
         button.setAttribute('title', tooltipText);
         if (isDropDown) {

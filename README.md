@@ -104,7 +104,7 @@ Because the fragment is inserted as SFDT instead of plain text, complex content 
 
 <p align="center">
   <img
-    src="asset/drag-drop-document-react-docx-editor.gif"
+    src="images/drag-drop-document-react-docx-editor.gif"
     alt="React DOCX Editor Drag and Drop Documents Demo"
     width="1000" />
 </p>

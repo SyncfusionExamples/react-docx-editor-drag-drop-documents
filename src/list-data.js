@@ -1,38 +1,26 @@
 export let listData =[
     {
-        text: "Document Intro",
+        text: "Cover Page",
         category: "Drag or click the field to insert.",
         htmlAttributes: { draggable: true },
         id: 1
     },
     {
-        text: "Key Responsibilities",
+        text: "About Author",
         category: "Drag or click the field to insert.",
         htmlAttributes: { draggable: true },
         id: 2
     },
     {
-        text: "Major Work Area",
+        text: "C-Sharp Intro",
         category: "Drag or click the field to insert.",
         htmlAttributes: { draggable: true },
         id: 3
     },
     {
-        text: "Global Health Challenges",
+        text: "Summary Page",
         category: "Drag or click the field to insert.",
         htmlAttributes: { draggable: true },
         id: 4
-    },
-    {
-        text: "Achievements of WHO",
-        category: "Drag or click the field to insert.",
-        htmlAttributes: { draggable: true },
-        id: 5
-    },
-    {
-        text: "Document Conclusion",
-        category: "Drag or click the field to insert.",
-        htmlAttributes: { draggable: true },
-        id: 6
     }
 ];

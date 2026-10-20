@@ -4,9 +4,10 @@ import { useEffect, useRef, useState } from 'react';
 import { DocumentEditorContainerComponent, Ribbon } from '@syncfusion/ej2-react-documenteditor';
 import { DialogComponent } from '@syncfusion/ej2-react-popups';
 import { ListView } from '@syncfusion/ej2-react-lists';
-import {docIntro, keyResponsibilities, majorWorkArea, globalHealthChallenges, achievementsOfWHO, docConclusion} from "./file-data";
+import { coverPage, aboutAuthor, cSharpIntro, summaryPage } from "./file-data";
 import { TitleBar } from './title-bar';
 import { listData } from './list-data';
+import './index.css';
 
 DocumentEditorContainerComponent.Inject(Ribbon);
 
@@ -24,12 +25,10 @@ const DragDropDocument = () => {
     let containerRef = useRef<DocumentEditorContainerComponent>(null);
     
     const [dictionary, setDictionary] = useState({
-        'Document Intro' : docIntro,
-        'Key Responsibilities' : keyResponsibilities,
-        'Major Work Area': majorWorkArea,
-        'Global Health Challenges' : globalHealthChallenges,
-        'Achievements of WHO' : achievementsOfWHO,
-        'Document Conclusion' : docConclusion
+        'Cover Page' : coverPage,
+        'About Author' : aboutAuthor,
+        'C-Sharp Intro': cSharpIntro,
+        'Summary Page' : summaryPage
     });
     
     const onCreate = () => {
@@ -74,7 +73,7 @@ const DragDropDocument = () => {
                 template: `
                     <div class="doc-row" style="display:flex;align-items:center;width:100%;">
                         <span class="doc-title" style="flex:1">\${text}</span>
-                        <button type="button" class="e-de-view-btn" data-id="\${id}" title="View">
+                        <button type="button" class="e-de-view-btn" data-id="\${id}" title="View" arial-label="View">
                         <span class="e-icons e-eye"></span>
                         </button>
                     </div>
@@ -90,6 +89,7 @@ const DragDropDocument = () => {
 
                 if (button) {
                     e.stopPropagation();
+					e.originalEvent?.stopPropagation();
                     e.preventDefault();
                     const id = button.getAttribute("data-id");
                     const row = listData.find(x => x.id.toString() === id);
@@ -130,23 +130,6 @@ const DragDropDocument = () => {
     function dialogClose() {
         setDialogOpen(false);
     }
-
-    // function renderComplete() {
-    //     if (!viewContainerRef.current)
-    //         return;
-    //     dialogOpen();
-    //     const editor = viewContainerRef.current.documentEditor;
-    //     editor.pageOutline = '#E0E0E0';
-    //     editor.acceptTab = true;
-    //     editor.resize();
-    //     this.titleBar = new TitleBar(document.getElementById('documenteditor_titlebar'), editor, true, false, this.dialogInstance);
-    //     editor.documentEditorSettings.showRuler = true;
-    //     this.viewContainer.documentChange = () => {
-    //         this.titleBar.updateDocumentTitle();
-    //         editor.focusIn();
-    //     };
-    //     this.viewContainer.resize();
-    // }
 
     function openDoc(mode, fragmentName) {
         if (!viewContainerRef.current)
